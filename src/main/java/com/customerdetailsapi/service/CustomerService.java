@@ -1,6 +1,7 @@
 package com.customerdetailsapi.service;
 
 import com.customerdetailsapi.entity.CustomerDetails;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CustomerService {
 
-    public void insertCustomerDetails(CustomerDetails customerDetails) throws Exception;
+    public void insertCustomerDetails(String name, String email, String dob, String occupation)throws Exception;
+    public List<CustomerDetails> getDetails();
 }

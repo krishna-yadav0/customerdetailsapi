@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -16,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name = "CustomerDetails")
+@Table(name = "customer_details")
 public class CustomerDetails {
 
     @Id
@@ -28,9 +29,9 @@ public class CustomerDetails {
     @Column(unique = true)
     private String email;
 
-    private String dob;
+    private Date dob;
 
-    private Occupation occupation;
+    private String occupation;
 
-    private CustomerGroup customerGroup;
+    private String customerGroup;
 }

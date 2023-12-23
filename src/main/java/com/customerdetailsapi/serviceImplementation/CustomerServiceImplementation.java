@@ -3,13 +3,13 @@ package com.customerdetailsapi.serviceImplementation;
 import com.customerdetailsapi.Repository.CustomerRepository;
 import com.customerdetailsapi.entity.CustomerDetails;
 import com.customerdetailsapi.service.CustomerService;
-import com.customerdetailsapi.utils.CustomerGroup;
 import com.customerdetailsapi.utils.Occupation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +24,30 @@ public class CustomerServiceImplementation implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public void insertCustomerDetails(CustomerDetails customerDetails) throws Exception {
+    public List<CustomerDetails> getDetails() {
+
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public void insertCustomerDetails(String name, String email, String dob, String occupation) throws Exception {
+        CustomerDetails customerDetails = new CustomerDetails();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date  = dateFormat.parse(dob);
+        customerDetails.setName(name);
+        customerDetails.setEmail(email);
+        customerDetails.setDob(date);
+        customerDetails.setOccupation(occupation);
 
         if (customerDetails.getEmail().endsWith("@hikeon.tech")) {
-            customerDetails.setCustomerGroup(CustomerGroup.HIKEON);
+            customerDetails.setCustomerGroup("HIKEON");
         } else {
             if (customerDetails.getOccupation().equals(Occupation.DEVELOPER)) {
-                customerDetails.setCustomerGroup(CustomerGroup.DEVELOPER);
+                customerDetails.setCustomerGroup("DEVELOPER");
             } else if (customerDetails.getOccupation().equals(Occupation.CHEF)) {
-                customerDetails.setCustomerGroup(CustomerGroup.CHEF);
+                customerDetails.setCustomerGroup("CHEF");
             } else {
-                customerDetails.setCustomerGroup(CustomerGroup.NA);
+                customerDetails.setCustomerGroup("NA");
             }
         }
 
@@ -51,10 +64,9 @@ public class CustomerServiceImplementation implements CustomerService {
         customerRepository.save(customerDetails);
     }
 
-    private boolean checkAge(String dob) throws ParseException {
-        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+    private boolean checkAge(Date dob) throws ParseException {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date1);
+        calendar.setTime(dob);
         LocalDate birthDate = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         LocalDate currentDate = LocalDate.now();
         return birthDate.plusYears(18).isAfter(currentDate);
@@ -64,7 +76,7 @@ public class CustomerServiceImplementation implements CustomerService {
         return customerRepository.existsByEmail(email);
     }
 
-    private boolean isDuplicateOccupationDobAndCustomerGroup(Occupation occupation, String dob, CustomerGroup customer_group) {
+    private boolean isDuplicateOccupationDobAndCustomerGroup(String occupation, Date dob, String customer_group) {
         return customerRepository.existsByOccupationAndDobAndCustomerGroup(occupation, dob, customer_group);
     }
 
