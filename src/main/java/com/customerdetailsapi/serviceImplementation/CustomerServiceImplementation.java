@@ -24,7 +24,7 @@ public class CustomerServiceImplementation implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public String insertCustomerDetails(CustomerDetails customerDetails) throws Exception {
+    public void insertCustomerDetails(CustomerDetails customerDetails) throws Exception {
 
         if (customerDetails.getEmail().endsWith("@hikeon.tech")) {
             customerDetails.setCustomerGroup(CustomerGroup.HIKEON);
@@ -48,7 +48,7 @@ public class CustomerServiceImplementation implements CustomerService {
             throw new Exception("Duplicate email or combination of occupation, DOB, and customer group.");
         }
 
-        return null;
+        customerRepository.save(customerDetails);
     }
 
     private boolean checkAge(String dob) throws ParseException {

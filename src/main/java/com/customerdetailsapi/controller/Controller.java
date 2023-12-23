@@ -22,12 +22,12 @@ public class Controller {
     @Autowired
     private CustomerService customerService;
     
-    @GetMapping("/")
-    public String hello(){
-        return "hello sir";
-    }
+//    @GetMapping("/")
+//    public String hello(){
+//        return "hello sir";
+//    }
     
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> addCustomer(@RequestBody CustomerDetails customerDetails){
         try{
             customerService.insertCustomerDetails(customerDetails);
