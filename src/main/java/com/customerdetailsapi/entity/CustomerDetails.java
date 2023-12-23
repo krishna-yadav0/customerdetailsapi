@@ -1,4 +1,6 @@
 package com.customerdetailsapi.entity;
+import com.customerdetailsapi.utils.CustomerGroup;
+import com.customerdetailsapi.utils.Occupation;
 import javax.persistence.*;
 import lombok.Data;
 /**
@@ -21,7 +23,7 @@ public class CustomerDetails {
     
     private String dob;
     
-    private String occupation;
+    private Occupation occupation;
     
-    private String customerGroup;
+    private CustomerGroup customerGroup;
 }

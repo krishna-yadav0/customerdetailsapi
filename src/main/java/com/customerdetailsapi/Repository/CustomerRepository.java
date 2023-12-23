@@ -1,6 +1,8 @@
 package com.customerdetailsapi.Repository;
 
 import com.customerdetailsapi.entity.CustomerDetails;
+import com.customerdetailsapi.utils.CustomerGroup;
+import com.customerdetailsapi.utils.Occupation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerDetails, Long> {
-    boolean existsByEmail(String email);
-    boolean existsByOccupationAndDobAndCustomerGroup(
-    String occupation, String dob, String customer_group);
+    public boolean existsByEmail(String email);
+    public boolean existsByOccupationAndDobAndCustomerGroup(
+    Occupation occupation, String dob, CustomerGroup customer_group);
 }
