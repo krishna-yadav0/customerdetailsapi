@@ -18,22 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/customerdetils")
 public class Controller {
-    
+
     @Autowired
     private CustomerService customerService;
-    
+
 //    @GetMapping("/")
 //    public String hello(){
 //        return "hello sir";
 //    }
-    
     @PostMapping
-    public ResponseEntity<String> addCustomer(@RequestBody CustomerDetails customerDetails){
-        try{
+    public ResponseEntity<String> addCustomer(@RequestBody CustomerDetails customerDetails) {
+        try {
             customerService.insertCustomerDetails(customerDetails);
             return ResponseEntity.status(HttpStatus.CREATED).body("Customer created successfully");
-        }catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }  
+    }
 }

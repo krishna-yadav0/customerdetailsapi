@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerDetails, Long> {
+
     public boolean existsByEmail(String email);
+
     public boolean existsByOccupationAndDobAndCustomerGroup(
-    Occupation occupation, String dob, CustomerGroup customer_group);
+            Occupation occupation, String dob, CustomerGroup customer_group);
 }
