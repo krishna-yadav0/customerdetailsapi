@@ -13,5 +13,4 @@ public interface CustomerRepository extends JpaRepository<CustomerDetails, Long>
     boolean existsByEmail(String email);
     boolean existsByOccupationAndDobAndCustomerGroup(
     String occupation, String dob, String customer_group);
-    
 }
