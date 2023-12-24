@@ -33,15 +33,18 @@ public class CustomerServiceImplementation implements CustomerService {
     public void insertCustomerDetails(String name, String email, String dob, String occupation) throws Exception {
         CustomerDetails customerDetails = new CustomerDetails();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date  = dateFormat.parse(dob);
+        Date date = dateFormat.parse(dob);
         customerDetails.setName(name);
         customerDetails.setEmail(email);
         customerDetails.setDob(date);
         customerDetails.setOccupation(occupation);
-
+        
+        //Check if email domain is @hikeon.tech
         if (customerDetails.getEmail().endsWith("@hikeon.tech")) {
             customerDetails.setCustomerGroup("HIKEON");
         } else {
+            
+            //For other domains,check occupation 'DEVELOPER'or'CHEF'or'NA'
             if (customerDetails.getOccupation().equals(Occupation.DEVELOPER)) {
                 customerDetails.setCustomerGroup("DEVELOPER");
             } else if (customerDetails.getOccupation().equals(Occupation.CHEF)) {
@@ -50,17 +53,20 @@ public class CustomerServiceImplementation implements CustomerService {
                 customerDetails.setCustomerGroup("NA");
             }
         }
-
+        
+        //Check if the user below 18 year old
         if (checkAge(customerDetails.getDob())) {
             throw new Exception("Customer must be 18 year or older.");
         }
-
+        
+        //Check uniqness constraints before saving user
         if (isDuplicateEmail(customerDetails.getEmail())
                 || (isDuplicateOccupationDobAndCustomerGroup(customerDetails.getOccupation(),
                         customerDetails.getDob(), customerDetails.getCustomerGroup()))) {
             throw new Exception("Duplicate email or combination of occupation, DOB, and customer group.");
         }
-
+        
+        //Save the customer details to the database
         customerRepository.save(customerDetails);
     }
 

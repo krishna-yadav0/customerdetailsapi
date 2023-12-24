@@ -24,15 +24,16 @@ public class Controller {
     private CustomerService customerService;
 
     @GetMapping("/get")
-    public List<CustomerDetails> hello(){
-        
+    public List<CustomerDetails> getCustomerDetails() {
+
         return customerService.getDetails();
     }
+
     @PostMapping("/post")
-    public ResponseEntity<String> addCustomer(@RequestParam String name,@RequestParam String email,
-            @RequestParam String dob, @RequestParam String occupation){
+    public ResponseEntity<String> addCustomer(@RequestParam String name, @RequestParam String email,
+            @RequestParam String dob, @RequestParam String occupation) {
         try {
-            customerService.insertCustomerDetails(name,email, dob, occupation);
+            customerService.insertCustomerDetails(name, email, dob, occupation);
             return ResponseEntity.status(HttpStatus.CREATED).body("Customer created successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

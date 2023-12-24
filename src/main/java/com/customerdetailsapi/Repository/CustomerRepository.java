@@ -1,8 +1,6 @@
 package com.customerdetailsapi.Repository;
 
 import com.customerdetailsapi.entity.CustomerDetails;
-import com.customerdetailsapi.utils.CustomerGroup;
-import com.customerdetailsapi.utils.Occupation;
 import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

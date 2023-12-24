@@ -1,7 +1,5 @@
 package com.customerdetailsapi.entity;
 
-import com.customerdetailsapi.utils.CustomerGroup;
-import com.customerdetailsapi.utils.Occupation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
