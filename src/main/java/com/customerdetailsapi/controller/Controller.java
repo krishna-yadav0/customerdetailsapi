@@ -23,12 +23,24 @@ public class Controller {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * This get method is used to fetch all customer details.
+     * @return 
+     */
     @GetMapping("/get")
     public List<CustomerDetails> getCustomerDetails() {
 
         return customerService.getDetails();
     }
 
+    /**
+     * This method is use to save customer details in database.
+     * @param name
+     * @param email
+     * @param dob
+     * @param occupation
+     * @return 
+     */
     @PostMapping("/post")
     public ResponseEntity<String> addCustomer(@RequestParam String name, @RequestParam String email,
             @RequestParam String dob, @RequestParam String occupation) {

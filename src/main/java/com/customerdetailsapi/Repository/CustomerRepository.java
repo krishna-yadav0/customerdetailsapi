@@ -12,8 +12,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerDetails, Long> {
 
+    /**
+     * This method is use to the uniqueness of the email constraint.
+     * @param email
+     * @return 
+     */
     public boolean existsByEmail(String email);
 
+    /**
+     * This method is use to check the uniqueness of combination of occupation, DOB, and customer group.
+     * @param occupation
+     * @param dob
+     * @param customer_group
+     * @return 
+     */
     public boolean existsByOccupationAndDobAndCustomerGroup(
             String occupation, Date dob, String customer_group);
 }

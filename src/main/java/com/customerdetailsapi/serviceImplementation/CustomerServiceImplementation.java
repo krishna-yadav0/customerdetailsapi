@@ -23,12 +23,24 @@ public class CustomerServiceImplementation implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    /**
+     * This method is use to get all customer details from database.
+     * @return 
+     */
     @Override
     public List<CustomerDetails> getDetails() {
 
         return customerRepository.findAll();
     }
 
+    /**
+     * This method is use to insert new customer details in database.
+     * @param name
+     * @param email
+     * @param dob
+     * @param occupation
+     * @throws Exception 
+     */
     @Override
     public void insertCustomerDetails(String name, String email, String dob, String occupation) throws Exception {
         CustomerDetails customerDetails = new CustomerDetails();
@@ -70,6 +82,12 @@ public class CustomerServiceImplementation implements CustomerService {
         customerRepository.save(customerDetails);
     }
 
+    /**
+     * This method is use to calculate the age of customer.
+     * @param dob
+     * @return
+     * @throws ParseException 
+     */
     private boolean checkAge(Date dob) throws ParseException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dob);
@@ -78,10 +96,22 @@ public class CustomerServiceImplementation implements CustomerService {
         return birthDate.plusYears(18).isAfter(currentDate);
     }
 
+    /**
+     * This method is use to uniqueness of email constraint.
+     * @param email
+     * @return 
+     */
     private boolean isDuplicateEmail(String email) {
         return customerRepository.existsByEmail(email);
     }
 
+    /**
+     * This method is use to check the uniqueness of combination of occupation, DOB, and customer group.
+     * @param occupation
+     * @param dob
+     * @param customer_group
+     * @return 
+     */
     private boolean isDuplicateOccupationDobAndCustomerGroup(String occupation, Date dob, String customer_group) {
         return customerRepository.existsByOccupationAndDobAndCustomerGroup(occupation, dob, customer_group);
     }
